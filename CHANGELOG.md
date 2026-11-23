@@ -3,6 +3,17 @@
 Alle vesentlige endringer i nettsiden føres her. Versjonene følger [semantisk versjonering](https://semver.org/lang/no/):
 MAJOR for store omlegginger, MINOR for nye funksjoner eller synlige forbedringer, PATCH for rettelser.
 
+## [1.3.0] – 2026-11-23
+
+### Endret
+- Forsiden: på PC er det nå bare én «Ta kontakt»-knapp i toppen. På mobil er «eller ring» erstattet med en egen «Ring 38 14 44 44»-knapp.
+- Forsiden: tjenestedelen har fått en ordentlig overskrift og lenken «Alle tjenester» i stedet for en ensom etikett.
+- Tjenester-siden: på PC vises de tre tjenestene i tre kolonner med bilde, tittel og kort beskrivelse.
+- Tjenestesidene: innholdet står i to kolonner ved siden av hverandre, med «Andre tjenester» tettere inntil. Toppbildet er lavere.
+- Om oss: roligere tekststørrelse, synlig overskrift over «Slik arbeider vi» og en slankere avslutning.
+- Kontakt: bildet er større og står på linje med kontaktinformasjonen.
+- Generelt strammere luft mellom seksjonene på PC.
+
 ## [1.2.0] – 2026-11-23
 
 ### Endret (kun PC – mobil og nettbrett er uendret)
@@ -38,6 +49,7 @@ MAJOR for store omlegginger, MINOR for nye funksjoner eller synlige forbedringer
 - Statisk Astro-side uten JavaScript, streng sikkerhetsprofil (CSP m.m.) og generert `.htaccess`, `_headers`, `_redirects`.
 - GitHub Pages-workflow for testversjon (noindex og egen `robots.txt`).
 
+[1.3.0]: https://github.com/kfenger/pro-revisjon/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/kfenger/pro-revisjon/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/kfenger/pro-revisjon/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/kfenger/pro-revisjon/releases/tag/v1.0.0

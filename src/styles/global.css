@@ -83,6 +83,10 @@ main:focus { outline: none; }
 }
 .btn:hover { background: var(--accent-dark); color: #fff; }
 .btn--small { min-height: 2.5rem; padding: 0 1.1rem; font-size: 0.9rem; }
+.btn--secondary { background: transparent; color: var(--ink); border: 1px solid var(--ink); gap: 0.55rem; }
+.btn--secondary:hover { background: var(--ink); color: #fff; }
+.btn--call { font-variant-numeric: tabular-nums; }
+.btn--call svg { flex: none; }
 
 .text-link {
   display: inline-flex; gap: 0.4rem; align-items: baseline; color: var(--accent); font-weight: 500; text-decoration: none;
@@ -176,8 +180,7 @@ main:focus { outline: none; }
 .hero-copy { padding: clamp(3rem, 2rem + 5vw, 6rem) var(--gutter) clamp(3rem, 2rem + 4vw, 5rem); }
 .hero h1 { font-size: var(--fs-hero); max-width: 16ch; margin-bottom: 0.5em; }
 .hero-lead { font-size: var(--fs-lead); font-family: var(--serif); color: var(--soft); max-width: 36ch; line-height: 1.5; }
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2.25rem; color: var(--soft); }
-.hero-actions span a { color: var(--ink); font-variant-numeric: tabular-nums; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 2.25rem; color: var(--soft); }
 .hero-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--stone-deep); }
 .slides, .slide { position: absolute; inset: 0; }
 .slide.photo { min-height: 0; height: 100%; }
@@ -290,6 +293,12 @@ main:focus { outline: none; }
 .next-links ul { display: flex; flex-wrap: wrap; gap: 0.75rem 3rem; list-style: none; margin: 0; padding: 0; }
 .next-links a { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); text-decoration: none; }
 .next-links a:hover { color: var(--accent); }
+
+/* Services: elements that only appear on desktop */
+.services-all, .index-photo { display: none; }
+/* Service page content blocks: same spacing as before on phones */
+.prose .svc-block > h2 { margin-top: 2.75rem; }
+.prose .svc-block:first-child > h2 { margin-top: 0; }
 
 /* Services overview: large typographic index */
 .index-list--large .index-title { font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.7rem); }
@@ -588,4 +597,60 @@ main:focus { outline: none; }
 /* Very wide screens: keep line lengths and photo proportions comfortable */
 @media (min-width: 120rem) {
   .hero { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+}
+
+
+/* =========================================================================
+   Desktop refinements (≥ 64rem) – tighter rhythm, no lonely labels,
+   fewer empty areas. Phones are not affected by anything below.
+   ========================================================================= */
+@media (min-width: 64rem) {
+  :root { --section: clamp(3.5rem, 4.5vw, 6rem); }
+
+  /* Hero: one clear action on desktop */
+  .btn--call { display: none; }
+
+  /* Home – services: real heading + "Alle tjenester" in the left column */
+  .services-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .services-intro .label { font-family: var(--serif); font-size: var(--fs-h2); font-weight: 450; letter-spacing: -0.015em; text-transform: none; color: var(--ink); margin: 0; padding: 0; }
+  .services-all { display: inline-flex; }
+
+  /* Services overview: three columns, each led by its photo */
+  .index-list--columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 3vw, 3.5rem); border-top: 0; }
+  .index-list--columns a { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; row-gap: 0.35rem; padding: 0 0 1.5rem; height: 100%; align-content: start; }
+  .index-list--columns .index-photo { display: block; grid-column: 1 / -1; margin-bottom: 1.25rem; }
+  .index-list--columns .index-photo img { transition: transform 1.2s var(--ease); }
+  .index-list--columns a:hover .index-photo img { transform: scale(1.03); }
+  .index-list--columns .index-title { grid-column: 1; grid-row: 2; font-size: clamp(1.5rem, 1.1rem + 0.8vw, 2rem); }
+  .index-list--columns .index-arrow { grid-column: 2; grid-row: 2; align-self: center; }
+  .index-list--columns .index-text { grid-column: 1 / -1; grid-row: 3; }
+
+  /* Service pages: content blocks side by side, "Andre tjenester" alongside */
+  .service-body { grid-template-columns: minmax(0, 1fr) minmax(15rem, 19rem); }
+  .service-body .prose { max-width: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem clamp(2.5rem, 4vw, 4.5rem); align-items: start; }
+  .service-body .prose .svc-block > h2 { margin-top: 0; }
+  .service-header-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 5vw, 6rem); }
+  .service-header-photo.photo--4x3 { aspect-ratio: 16 / 10; }
+  .article-layout { padding-top: clamp(2.5rem, 4vw, 4rem); }
+
+  /* About: calmer statement, heading above the principles, slimmer closing row */
+  .about-intro { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: clamp(3rem, 6vw, 7rem); }
+  .statement { font-size: clamp(1.25rem, 0.95rem + 0.65vw, 1.6rem); max-width: 42ch; line-height: 1.5; }
+  .facts { max-width: 46rem; }
+  .principles-wrap { grid-template-columns: minmax(0, 1fr); gap: 2.25rem; }
+  .principles-wrap .label { font-family: var(--serif); font-size: var(--fs-h2); font-weight: 450; letter-spacing: -0.015em; text-transform: none; color: var(--ink); margin: 0; padding: 0; }
+  .principles { gap: 2rem clamp(2.5rem, 4vw, 5rem); }
+  .section--next { padding-block: clamp(2.5rem, 3.5vw, 3.75rem); }
+  .section--next .next-step { border-top: 0; padding-top: 0; }
+
+  /* Contact: larger photo aligned with the details */
+  .split-hero--contact { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  .split-hero--contact .contact-photo { align-self: start; margin-top: clamp(6.5rem, 8vw, 8.5rem); }
+  .split-hero--contact .contact-photo.photo--21x9 { aspect-ratio: 3 / 2; }
+  .contact-details { max-width: 34rem; }
+}
+
+/* Very narrow phones: stack the two hero buttons at equal width */
+@media (max-width: 22.5rem) {
+  .hero-actions .btn { flex: 1 1 100%; }
 }

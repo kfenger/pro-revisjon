@@ -14,7 +14,8 @@ import { company, services } from '../data/site';
       <p class="hero-lead enter enter--3">Et frittstående revisjonsfirma, eid og drevet av statsautoriserte revisorer.</p>
       <p class="hero-actions enter enter--4">
         <a class="btn" href="/kontakt/">Ta kontakt</a>
-        <span>eller ring <a href={company.phone.href}>{company.phone.display}</a></span>
+        <a class="btn btn--secondary btn--call" href={company.phone.href}>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Ring&nbsp;{company.phone.display}</a>
       </p>
     </div>
     <HeroSlideshow
@@ -31,8 +32,9 @@ import { company, services } from '../data/site';
   <!-- What we do -->
   <section class="section" aria-labelledby="tjenester-title">
     <div class="container two-col">
-      <div class="two-col-label">
+      <div class="two-col-label services-intro">
         <h2 id="tjenester-title" class="label">Tjenester</h2>
+        <a class="text-link services-all" href="/tjenester/">Alle tjenester <span aria-hidden="true">→</span></a>
       </div>
       <ul class="index-list">
         {services.map((s) => (

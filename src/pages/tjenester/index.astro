@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import Photo from '../../components/Photo.astro';
 import { services } from '../../data/site';
 ---
 <Base title="Tjenester" description="Revisjon, regnskap og skatt, og rådgivning fra statsautoriserte revisorer i Kristiansand.">
@@ -11,10 +12,11 @@ import { services } from '../../data/site';
   />
   <section class="section section--flush-top" aria-label="Tjenesteoversikt">
     <div class="container">
-    <ul class="index-list index-list--large">
+    <ul class="index-list index-list--large index-list--columns">
       {services.map((s) => (
         <li>
           <a href={`/tjenester/${s.slug}/`}>
+            <Photo name={s.photo} alt="" focus={s.photoFocus} sizes="(min-width: 64rem) 30vw, 1px" ratio="4x3" lazy class="index-photo" />
             <span class="index-title">{s.title}</span>
             <span class="index-text">{s.tagline}</span>
             <span class="index-arrow" aria-hidden="true">→</span>
