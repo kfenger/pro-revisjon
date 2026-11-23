@@ -3,6 +3,11 @@
 The Pro-Revisjon AS website. It is built with [Astro](https://astro.build) and outputs plain static HTML and CSS,
 with **no JavaScript, database, cookies, analytics or admin login**.
 
+## Versions
+Releases are tagged in git (`v1.0.0`, `v1.1.0`, …) and described in [CHANGELOG.md](CHANGELOG.md).
+To release: update `CHANGELOG.md`, run `npm version <x.y.z> --no-git-tag-version`, commit, then
+`git tag -a vX.Y.Z -m "…"` and `git push --follow-tags`.
+
 ## Requirements
 - Node.js 22.12 or newer
 

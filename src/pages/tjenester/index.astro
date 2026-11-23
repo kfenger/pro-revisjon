@@ -10,7 +10,8 @@ import { services } from '../../data/site';
     crumbs={[{ label: 'Tjenester', href: '/tjenester/' }]}
   />
   <section class="section section--flush-top" aria-label="Tjenesteoversikt">
-    <ul class="container index-list index-list--large">
+    <div class="container">
+    <ul class="index-list index-list--large">
       {services.map((s) => (
         <li>
           <a href={`/tjenester/${s.slug}/`}>
@@ -21,5 +22,6 @@ import { services } from '../../data/site';
         </li>
       ))}
     </ul>
+    </div>
   </section>
 </Base>

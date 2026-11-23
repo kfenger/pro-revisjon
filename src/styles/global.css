@@ -126,6 +126,11 @@ main:focus { outline: none; }
   border: 1px solid var(--line); border-radius: 2px; font-size: 0.9rem; font-weight: 500; cursor: pointer; list-style: none; user-select: none;
 }
 .nav-mobile summary::-webkit-details-marker { display: none; }
+.nav-mobile[open] summary::before {
+  content: ''; position: fixed; inset: 0; z-index: 1; cursor: default;
+  background: rgba(21, 25, 30, 0.18);
+}
+.nav-mobile nav { z-index: 2; }
 .nav-mobile-icon, .nav-mobile-icon::before, .nav-mobile-icon::after { display: block; width: 18px; height: 1.5px; background: var(--ink); content: ''; transition: transform 0.25s var(--ease), background-color 0.2s; }
 .nav-mobile-icon { position: relative; }
 .nav-mobile-icon::before { position: absolute; top: -6px; }
@@ -409,12 +414,12 @@ main:focus { outline: none; }
 .site-footer a { color: #fff; text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 .site-footer :focus-visible { outline-color: #fff; }
-.footer-cta { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; padding-block: clamp(4.5rem, 3rem + 5vw, 7.5rem) clamp(3.5rem, 2.5rem + 4vw, 6rem); }
+.footer-cta { display: grid; gap: 1.25rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; padding-block: clamp(3rem, 2.4rem + 2.5vw, 4.5rem) clamp(2.25rem, 1.8rem + 2vw, 3.5rem); }
 @media (min-width: 56rem) { .footer-cta { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
-.footer-cta h2 { color: #fff; font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem); margin: 0; max-width: 12ch; }
-.footer-cta-details { display: flex; flex-direction: column; gap: 0.35rem; font-size: 1rem; }
+.footer-cta h2 { color: #fff; font-size: clamp(1.45rem, 1.2rem + 1.1vw, 2.1rem); margin: 0; max-width: 16ch; }
+.footer-cta-details { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.95rem; }
 .footer-cta-details a { width: fit-content; }
-.footer-phone { font-family: var(--serif); font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem); font-variant-numeric: tabular-nums; margin-bottom: 0.25rem; }
+.footer-phone { font-family: var(--serif); font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.65rem); font-variant-numeric: tabular-nums; margin-bottom: 0.15rem; }
 .footer-bottom { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 2rem; padding-block: 1.5rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.12); }
 .site-footer:not(:has(.footer-cta)) .footer-bottom { border-top: 0; padding-top: 2.25rem; }
 .footer-name { font-family: var(--serif); font-size: 1.1rem; color: #fff; margin: 0; }
