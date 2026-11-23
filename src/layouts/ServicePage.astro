@@ -20,16 +20,18 @@ const others = services.filter((s) => s.slug !== slug);
     </div>
   </header>
 
-  <div class="container article-layout">
+  <div class="container service-body">
+  <div class="article-layout">
     <article class="prose">
       <slot />
     </article>
   </div>
 
-  <nav class="container next-links" aria-label="Andre tjenester">
+  <nav class="next-links" aria-label="Andre tjenester">
     <p class="label">Andre tjenester</p>
     <ul>
       {others.map((s) => <li><a href={`/tjenester/${s.slug}/`}>{s.title} <span aria-hidden="true">→</span></a></li>)}
     </ul>
   </nav>
+  </div>
 </Base>

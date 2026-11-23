@@ -51,11 +51,10 @@ with sync_playwright() as p:
     pg.goto(BASE+'/personvern/'); pg.click('.toc a[href="#klage"]'); pg.wait_for_timeout(200)
     top=pg.evaluate("document.getElementById('klage').getBoundingClientRect().top"); hh=pg.evaluate("document.querySelector('.site-header').getBoundingClientRect().height")
     ok(top>=hh, f'anchor hidden under sticky header: top={top} header={hh}')
-    # slideshow pause: keyboard operable
-    pg.goto(BASE+'/'); pg.focus('#slideshow-pause'); pg.keyboard.press('Space')
-    ok(pg.evaluate("getComputedStyle(document.querySelector('.slide--1')).animationPlayState")=='paused','slideshow pauses with keyboard')
-    ok(pg.evaluate("getComputedStyle(document.querySelector('.slideshow-control')).outlineStyle")!='none','pause control shows focus ring')
-    pg.keyboard.press('Space'); ok(pg.evaluate("getComputedStyle(document.querySelector('.slide--1')).animationPlayState")=='running','slideshow resumes')
+    # slideshow has no pause control; header bar has no phone number on desktop
+    pg.goto(BASE+'/'); ok(pg.query_selector('.slideshow-control, #slideshow-pause') is None, 'no slideshow pause control')
+    ok(pg.query_selector('.header-inner a[href^="tel:"]:not(.nav-mobile a)') is None, 'no phone number in desktop header')
+    ok(pg.evaluate("Math.round(document.querySelector('.brand').getBoundingClientRect().left)")==pg.evaluate("Math.round(document.querySelector('.hero-copy').getBoundingClientRect().left)"), 'logo aligned with page content')
     # ---- mobile: menu
     m=b.new_page(viewport={'width':375,'height':740},ignore_https_errors=True)
     for label,path in {'Hjem':'/', **expected}.items():

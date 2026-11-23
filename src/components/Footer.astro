@@ -8,14 +8,14 @@ const { cta = true } = Astro.props;
     <div class="container footer-cta">
       <h2>Skal vi ta en prat?</h2>
       <div class="footer-cta-details">
-        <a class="footer-phone" href={company.phone.href}>{company.phone.display}</a>
-        <a href={`mailto:${company.email}`}>{company.email}</a>
-        <span>{company.street}, {company.postalCode} {company.city}</span>
+        <p class="footer-field"><span class="footer-label">Ring oss</span><a class="footer-phone" href={company.phone.href}>{company.phone.display}</a></p>
+        <p class="footer-field"><span class="footer-label">Send e-post</span><a href={`mailto:${company.email}`}>{company.email}</a></p>
+        <p class="footer-field"><span class="footer-label">Besøk oss</span><span>{company.street}<span class="footer-comma">,</span> <span class="footer-city">{company.postalCode} {company.city}</span></span></p>
       </div>
     </div>
   )}
   <div class="container footer-bottom">
-    <p class="footer-name">{company.name}</p>
+    <p class="footer-name"><span class="footer-copy">© </span>{company.name}</p>
     <nav aria-label="Bunnmeny">
       <ul>
         {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}

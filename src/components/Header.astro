@@ -23,7 +23,6 @@ const links = nav.filter((n) => n.href !== '/kontakt/');
     </nav>
 
     <div class="header-contact">
-      <a class="header-phone" href={company.phone.href}>{company.phone.display}</a>
       <a class:list={['btn', 'btn--small', state('/kontakt/') && 'is-active']} href="/kontakt/" aria-current={state('/kontakt/') === 'page' ? 'page' : undefined}>Kontakt</a>
     </div>
 

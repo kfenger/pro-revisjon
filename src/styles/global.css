@@ -116,8 +116,6 @@ main:focus { outline: none; }
 .nav-desktop a.is-active::after { background: var(--brand-red); }
 .nav-desktop a.is-active::after { transform: scaleX(1); }
 .header-contact { display: flex; align-items: center; gap: 1.5rem; }
-.header-phone { color: var(--ink); text-decoration: none; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
-.header-phone:hover { color: var(--accent); }
 
 /* Mobile menu – native <details>, no JavaScript */
 .nav-mobile { display: none; }
@@ -183,18 +181,6 @@ main:focus { outline: none; }
 .hero-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--stone-deep); }
 .slides, .slide { position: absolute; inset: 0; }
 .slide.photo { min-height: 0; height: 100%; }
-.slideshow-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
-.slideshow-control {
-  position: absolute; right: 1rem; bottom: 1rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.45rem 0.8rem; background: rgba(248, 246, 241, 0.88); color: var(--ink); border-radius: 2px;
-  font-size: 0.78rem; cursor: pointer; user-select: none;
-}
-.slideshow-icon { width: 8px; height: 10px; border-left: 2px solid currentColor; border-right: 2px solid currentColor; }
-.slideshow .when-paused { display: none; }
-.slideshow:has(.slideshow-toggle:checked) .when-paused { display: inline; }
-.slideshow:has(.slideshow-toggle:checked) .when-playing { display: none; }
-.slideshow:has(.slideshow-toggle:checked) .slideshow-icon { border: 0; width: 0; height: 0; border-left: 8px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
-.slideshow:has(.slideshow-toggle:focus-visible) .slideshow-control { outline: 2px solid var(--ink); outline-offset: 3px; }
 .slide:not(.slide--1) { opacity: 0; }
 @media (min-width: 64rem) {
   .hero { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr); min-height: min(calc(100svh - var(--header-h)), 50rem); }
@@ -419,6 +405,9 @@ main:focus { outline: none; }
 .footer-cta h2 { color: #fff; font-size: clamp(1.45rem, 1.2rem + 1.1vw, 2.1rem); margin: 0; max-width: 16ch; }
 .footer-cta-details { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.95rem; }
 .footer-cta-details a { width: fit-content; }
+.footer-field { margin: 0; }
+.footer-field > a, .footer-field > span:not(.footer-label) { display: inline-block; }
+.footer-label, .footer-copy { display: none; }
 .footer-phone { font-family: var(--serif); font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.65rem); font-variant-numeric: tabular-nums; margin-bottom: 0.15rem; }
 .footer-bottom { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 2rem; padding-block: 1.5rem 2rem; border-top: 1px solid rgba(255, 255, 255, 0.12); }
 .site-footer:not(:has(.footer-cta)) .footer-bottom { border-top: 0; padding-top: 2.25rem; }
@@ -469,7 +458,6 @@ main:focus { outline: none; }
   .slideshow--3 .slide--2 { animation-delay: 7.38s; }
   .slideshow--3 .slide--3 { animation-delay: 16.38s; }
   .slideshow .slide img { animation: drift-zoom 27s ease-in-out infinite alternate; }
-  .slideshow:has(.slideshow-toggle:checked) :is(.slide, .slide img) { animation-play-state: paused; }
 
   @supports (animation-timeline: view()) {
     /* Photos below the fold are revealed as they enter the viewport */
@@ -496,12 +484,11 @@ main:focus { outline: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
-  .slide:not(.slide--1), .slideshow-control { display: none; } /* still image only – nothing to pause */
+  .slide:not(.slide--1) { display: none; } /* still image only */
 }
 
 @media (forced-colors: active) {
   .nav-desktop a.is-active::after, .index-list a::after { forced-color-adjust: none; background: Highlight; }
-  .slideshow-control { border: 1px solid ButtonText; }
   .btn, .nav-mobile summary { border: 1px solid ButtonText; }
 }
 
@@ -511,4 +498,94 @@ main:focus { outline: none; }
   .site-footer { background: none; color: #000; }
   .site-footer h2, .site-footer a { color: #000; }
   .hero, .split-hero, .policy-layout, .article-layout { display: block; }
+}
+
+
+/* =========================================================================
+   Desktop (≥ 64rem / 1024px). Everything below only applies on larger screens,
+   so phones look exactly as before.
+   - Content uses the full screen width with a proportional side margin.
+   - Photos sit inside the same margins instead of bleeding to the edges.
+   ========================================================================= */
+@media (min-width: 64rem) {
+  :root {
+    --gutter: clamp(2.5rem, 4vw, 5.5rem);
+    --max: 110rem;
+    --header-h: 5.5rem;
+  }
+  .logo-img { height: 66px; }
+
+  /* Hero: copy left, slideshow right, both inside the page margins */
+  .hero {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(3rem, 5vw, 7rem);
+    align-items: center;
+    min-height: 0;
+    width: min(100% - 2 * var(--gutter), var(--max));
+    margin-inline: auto;
+    padding-block: clamp(3rem, 5vw, 5.5rem) clamp(3.5rem, 6vw, 6.5rem);
+    border-bottom: 0;
+  }
+  .hero-copy { padding: 0; }
+  .hero h1 { font-size: clamp(2.6rem, 1.4rem + 2.4vw, 4.4rem); }
+  .hero-media { height: auto; aspect-ratio: 4 / 3; max-height: calc(100svh - var(--header-h) - 7rem); width: 100%; }
+
+  /* Services index and other two-column sections get a slightly wider label column */
+  .two-col { grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr); }
+
+  /* "Kort vei til revisoren": photo and text inside the margins on a full-width sand band */
+  .feature {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 8rem);
+    min-height: 0;
+    padding: clamp(4rem, 6vw, 7rem) var(--edge);
+    align-items: center;
+  }
+  .feature-photo { height: auto; aspect-ratio: 5 / 4; }
+  .feature-copy { padding: 0; }
+
+  /* Service pages: "Andre tjenester" becomes a sidebar instead of empty space */
+  .service-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+    gap: clamp(3rem, 6vw, 8rem);
+    align-items: start;
+    padding-bottom: var(--section);
+  }
+  .service-body .next-links {
+    position: sticky; top: calc(var(--header-h) + 2rem);
+    margin-top: clamp(3rem, 2rem + 4vw, 5.5rem);
+    padding: 1.25rem 0 0; border-top: 1px solid var(--ink);
+  }
+  .service-body .next-links ul { flex-direction: column; gap: 0; }
+  .service-body .next-links li { border-bottom: 1px solid var(--line); }
+  .service-body .next-links a { display: flex; justify-content: space-between; padding-block: 0.9rem; font-size: 1.25rem; }
+  .service-body .article-layout { padding-bottom: 0; }
+  .service-header-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .service-header-photo { max-width: 46rem; }
+
+  /* Footer: centred contact block with three equal fields, centred links and copyright */
+  .footer-cta { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 2.5rem; padding-block: clamp(3.5rem, 5vw, 5rem) clamp(2.5rem, 3.5vw, 3.5rem); }
+  .footer-cta h2 { max-width: none; }
+  .footer-cta-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; width: min(100%, 64rem); }
+  .footer-field { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.25rem 2rem; }
+  .footer-field + .footer-field { border-left: 1px solid rgba(255, 255, 255, 0.12); }
+  .footer-label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--night-soft); }
+  .footer-field .footer-phone { font-size: 1.1rem; font-family: var(--sans); margin: 0; }
+  .footer-field a, .footer-field span:not(.footer-label) { font-size: 1.05rem; color: #fff; }
+  .footer-bottom { flex-direction: column-reverse; align-items: center; gap: 1rem; text-align: center; padding-block: 1.75rem 2.25rem; }
+  .footer-bottom ul { justify-content: center; gap: 0.5rem 2.25rem; }
+  .footer-name { font-family: var(--sans); font-size: 0.82rem; color: var(--night-soft); }
+  .footer-comma { display: none; }
+  .footer-city { display: block; }
+  .footer-copy { display: inline; }
+}
+
+/* Scale the whole interface with the screen on large monitors (all sizes are in rem) */
+@media (min-width: 90rem) { html { font-size: 106.25%; } }
+@media (min-width: 120rem) { html { font-size: 112.5%; } }
+
+/* Very wide screens: keep line lengths and photo proportions comfortable */
+@media (min-width: 120rem) {
+  .hero { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
 }
