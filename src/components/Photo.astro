@@ -1,0 +1,38 @@
+---
+// Large layout photography. Renders an optimised <picture> (AVIF/WebP, responsive widths)
+// when the file exists in src/assets/images/photos/, otherwise a calm neutral block of
+// the same proportions so the layout never shifts.
+import { Picture } from 'astro:assets';
+import { photo } from '../lib/images';
+interface Props {
+  name: string;
+  alt: string;
+  sizes: string;
+  ratio?: '3x2' | '4x5' | '4x3' | '16x9' | '21x9' | 'fill'; // maps to a CSS class (no inline styles under CSP)
+  priority?: boolean; // above the fold: eager + high fetch priority
+  parallax?: boolean;
+  /** Focal point so the important part stays visible when cropped (maps to a CSS class). */
+  focus?: 'center' | 'left' | 'right' | 'top' | 'bottom' | 'bottom-left' | 'bottom-right' | 'top-right';
+  lazy?: boolean;
+  class?: string;
+}
+const { name, alt, sizes, ratio = '3x2', priority = false, parallax = false, focus = 'center', lazy = false, class: cls } = Astro.props;
+const img = photo(name);
+const widths = img ? [480, 800, 1200, 1600, 2000].filter((w) => w <= img.width) : [];
+---
+<div class:list={['photo', `photo--${ratio}`, `focus-${focus}`, parallax && 'photo--parallax', !priority && !lazy && 'photo--reveal', cls]}>
+  {img ? (
+    <Picture
+      src={img}
+      alt={alt}
+      formats={['avif', 'webp']}
+      widths={widths.length ? widths : [img.width]}
+      sizes={sizes}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : lazy ? 'low' : 'auto'}
+      decoding="async"
+    />
+  ) : (
+    <span class="photo-placeholder" aria-hidden="true"></span>
+  )}
+</div>

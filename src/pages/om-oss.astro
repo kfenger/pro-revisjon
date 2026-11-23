@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Photo from '../components/Photo.astro';
+---
+<Base title="Om oss" description="Pro-Revisjon AS er et frittstående revisjonsfirma i Kristiansand, eid og drevet av statsautoriserte revisorer og godkjent av Finanstilsynet.">
+  <PageHeader
+    title="Om Pro-Revisjon"
+    lead="Et frittstående revisjonsfirma i Kristiansand, med lang og bred erfaring innen revisjon og rådgivning."
+    crumbs={[{ label: 'Om oss', href: '/om-oss/' }]}
+  />
+
+  <section class="section section--flush-top" aria-labelledby="selskapet">
+    <div class="container about-intro">
+      <Photo name="logo-glass" alt="Pro-Revisjon-logoen på glassdøren inn til kontoret" sizes="(min-width: 56rem) 30vw, 100vw" ratio="4x5" priority class="about-intro-photo" />
+      <div>
+        <h2 id="selskapet" class="label">Selskapet</h2>
+        <p class="statement">
+          Pro-Revisjon eies og drives av de statsautoriserte revisorene Øystein Enger og Bernt Atle Enger. Vår
+          hovedvirksomhet er revisjon, og kundene er i hovedsak små og mellomstore bedrifter i mange bransjer.
+        </p>
+        <dl class="facts">
+          <div><dt>Godkjenning</dt><dd>Godkjent revisjonsselskap og autorisert regnskapsførerselskap</dd></div>
+          <div><dt>Tilsyn</dt><dd>Finanstilsynet</dd></div>
+          <div><dt>Medlemskap</dt><dd>Den Norske Revisorforening</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--stone" aria-labelledby="prinsipper">
+    <div class="container two-col">
+      <div class="two-col-label"><h2 id="prinsipper" class="label">Slik arbeider vi</h2></div>
+      <div class="principles">
+        <div>
+          <h3>Uavhengighet</h3>
+          <p>Vi reviderer aldri arbeid vi selv har utført, og tar ikke oppdrag som kan svekke uavhengigheten vår.</p>
+        </div>
+        <div>
+          <h3>Integritet</h3>
+          <p>Kundene skal alltid vite at vi ikke «sitter på andre siden av bordet».</p>
+        </div>
+        <div>
+          <h3>Engasjement</h3>
+          <p>Objektivitet, men også entusiasme, smidighet og respekt for oppdragsgiveren.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container next-step">
+      <p>Vil du vite hvem du vil jobbe med?</p>
+      <a class="text-link" href="/ansatte/">Møt de ansatte <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Base>

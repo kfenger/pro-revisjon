@@ -1,0 +1,51 @@
+---
+import Logo from './Logo.astro';
+import { company, nav } from '../data/site';
+import { pagePath } from '../lib/path';
+const path = pagePath(Astro.url);
+const state = (href: string) => (path === href ? 'page' : path.startsWith(href) ? 'section' : undefined);
+const links = nav.filter((n) => n.href !== '/kontakt/');
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/"><Logo /></a>
+
+    <nav class="nav-desktop" aria-label="Hovedmeny">
+      <ul>
+        {links.map((item) => (
+          <li>
+            <a href={item.href} class:list={[state(item.href) && 'is-active']} aria-current={state(item.href) === 'page' ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-contact">
+      <a class="header-phone" href={company.phone.href}>{company.phone.display}</a>
+      <a class:list={['btn', 'btn--small', state('/kontakt/') && 'is-active']} href="/kontakt/" aria-current={state('/kontakt/') === 'page' ? 'page' : undefined}>Kontakt</a>
+    </div>
+
+    <details class="nav-mobile">
+      <summary>
+        <span class="nav-mobile-label">Meny</span>
+        <span class="nav-mobile-icon" aria-hidden="true"></span>
+      </summary>
+      <nav aria-label="Meny">
+        <ul>
+          <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>Hjem</a></li>
+          {nav.map((item) => (
+            <li>
+              <a href={item.href} class:list={[state(item.href) && 'is-active']} aria-current={state(item.href) === 'page' ? 'page' : undefined}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+        <p class="nav-mobile-contact">
+          <a href={company.phone.href}>{company.phone.display}</a>
+          <a href={`mailto:${company.email}`}>{company.email}</a>
+        </p>
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,27 @@
+---
+import { company, nav } from '../data/site';
+interface Props { cta?: boolean; }
+const { cta = true } = Astro.props;
+---
+<footer class="site-footer">
+  {cta && (
+    <div class="container footer-cta">
+      <h2>Skal vi ta en prat?</h2>
+      <div class="footer-cta-details">
+        <a class="footer-phone" href={company.phone.href}>{company.phone.display}</a>
+        <a href={`mailto:${company.email}`}>{company.email}</a>
+        <span>{company.street}, {company.postalCode} {company.city}</span>
+      </div>
+    </div>
+  )}
+  <div class="container footer-bottom">
+    <p class="footer-name">{company.name}</p>
+    <nav aria-label="Bunnmeny">
+      <ul>
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        <li><a href="/nyttige-lenker/">Nyttige lenker</a></li>
+        <li><a href="/personvern/">Personvern</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>

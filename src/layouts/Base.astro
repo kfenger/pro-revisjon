@@ -1,0 +1,76 @@
+---
+import '../styles/fonts.css';
+import '../styles/global.css';
+import { company } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { pagePath, isPreview } from '../lib/path';
+import interFont from '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import serifFont from '../../node_modules/@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
+
+interface Props {
+  title?: string;
+  description: string;
+  noindex?: boolean;
+  footerCta?: boolean;
+}
+
+const { title, description, noindex = false, footerCta = true } = Astro.props;
+const fullTitle = title ? `${title} | ${company.name}` : `${company.name} – Revisjon og rådgivning i Kristiansand`;
+const path = pagePath(Astro.url);
+const canonical = new URL(path, 'https://pro-revisjon.no').href;
+const robotsNoindex = noindex || isPreview;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AccountingService',
+  name: company.name,
+  url: company.url,
+  telephone: company.phone.schema,
+  email: company.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: company.street,
+    postalCode: company.postalCode,
+    addressLocality: company.city,
+    addressCountry: 'NO',
+  },
+};
+// Escape '<' so data can never close the <script> element (defence against injected content).
+const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {robotsNoindex && <meta name="robots" content={isPreview ? "noindex, nofollow" : "noindex"} />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#f7f5f0" />
+    <meta name="color-scheme" content="light" />
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nb_NO" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="format-detection" content="telephone=no" />
+    {path === '/' && <script type="application/ld+json" set:html={jsonLdSafe} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#innhold">Hopp til innhold</a>
+    <Header />
+    <main id="innhold" tabindex="-1">
+      <slot />
+    </main>
+    <Footer cta={footerCta} />
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Portrait from '../components/Portrait.astro';
+import { people } from '../data/site';
+---
+<Base title="Ansatte" description="Møt de ansatte i Pro-Revisjon AS – statsautoriserte revisorer og revisormedarbeider i Kristiansand.">
+  <PageHeader
+    title="Ansatte"
+    lead="Ta gjerne kontakt direkte med den du ønsker å snakke med."
+    crumbs={[{ label: 'Ansatte', href: '/ansatte/' }]}
+  />
+  <section class="section section--flush-top" aria-label="Ansattliste">
+    <ul class="container team">
+      {people.map((p, i) => (
+        <li class="team-member">
+          <Portrait person={p} size="team" loading={i < 3 ? 'eager' : 'lazy'} />
+          <h2>{p.name}</h2>
+          <p class="team-title">{p.title}</p>
+          <p class="team-contact">
+            <a href={p.mobile.href}>{p.mobile.display}</a>
+            <a href={`mailto:${p.email}`}>{p.email}</a>
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

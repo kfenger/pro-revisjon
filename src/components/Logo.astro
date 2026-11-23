@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import { logo } from '../lib/images';
+import { company } from '../data/site';
+const img = logo();
+---
+{img ? (
+  <Image src={img} alt={company.name} class="logo-img" height={64} densities={[1, 2]} loading="eager" />
+) : (
+  <span class="wordmark">
+    <span class="wordmark-name">Pro-Revisjon</span>
+    <span class="wordmark-tag">Statsautoriserte revisorer</span>
+  </span>
+)}

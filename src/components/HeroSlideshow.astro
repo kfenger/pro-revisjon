@@ -1,0 +1,33 @@
+---
+// Slow, cinematic crossfade between a few photographs. CSS only (no JavaScript):
+// a visually hidden checkbox + visible label gives a real pause control (WCAG 2.2.2),
+// and with prefers-reduced-motion only the first image is shown.
+import Photo from './Photo.astro';
+interface Slide { name: string; alt: string; focus?: 'center' | 'left' | 'right' | 'top' | 'bottom' | 'bottom-left' | 'bottom-right' | 'top-right'; }
+interface Props { slides: Slide[]; sizes: string; class?: string; }
+const { slides, sizes, class: cls } = Astro.props;
+---
+<div class:list={['slideshow', `slideshow--${slides.length}`, cls]}>
+  <input type="checkbox" id="slideshow-pause" class="slideshow-toggle" />
+  <div class="slides">
+    {slides.map((s, i) => (
+      <Photo
+        name={s.name}
+        alt={i === 0 ? s.alt : ''}
+        sizes={sizes}
+        ratio="fill"
+        focus={s.focus}
+        priority={i === 0}
+        lazy={i > 0}
+        class={`slide slide--${i + 1}`}
+      />
+    ))}
+  </div>
+  {slides.length > 1 && (
+    <label for="slideshow-pause" class="slideshow-control">
+      <span class="slideshow-icon" aria-hidden="true"></span>
+      <span class="when-playing">Pause bildene</span>
+      <span class="when-paused">Spill av bildene</span>
+    </label>
+  )}
+</div>

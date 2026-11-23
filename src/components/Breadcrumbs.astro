@@ -1,0 +1,22 @@
+---
+import { company } from '../data/site';
+export interface Crumb { label: string; href: string; }
+interface Props { items: Crumb[]; }
+const { items } = Astro.props;
+const all = [{ label: 'Hjem', href: '/' }, ...items];
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: all.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.label, item: new URL(c.href, company.url).href })),
+}).replace(/</g, '\\u003c');
+---
+<nav class="breadcrumbs" aria-label="Brødsmulesti">
+  <ol>
+    {all.map((c, i) => (
+      <li>
+        {i < all.length - 1 ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={jsonLd} />

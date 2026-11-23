@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { usefulLinks } from '../data/site';
+---
+<Base title="Nyttige lenker" description="Nyttige lenker til offentlige etater og fagressurser innen revisjon, regnskap og skatt.">
+  <PageHeader
+    title="Nyttige lenker"
+    lead="Offentlige etater og fagressurser vi ofte viser kundene til."
+    crumbs={[{ label: 'Nyttige lenker', href: '/nyttige-lenker/' }]}
+  />
+  <section class="section section--flush-top">
+    <div class="container link-groups">
+      {usefulLinks.map((g, i) => (
+        <section aria-labelledby={`lg-${i}`}>
+          <h2 id={`lg-${i}`}>{g.group}</h2>
+          <ul class="link-list">
+            {g.links.map((l) => (
+              <li>
+                <a href={l.url} rel="noopener noreferrer">
+                  <span class="link-name">{l.name}<span class="visually-hidden"> (ekstern lenke)</span></span>
+                  <span class="link-note">{l.note}</span>
+                  <span class="link-icon" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>

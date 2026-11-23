@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import HeroSlideshow from '../components/HeroSlideshow.astro';
+import { company, services } from '../data/site';
+---
+
+<Base description="Pro-Revisjon AS er et frittstående revisjonsfirma i Kristiansand, eid og drevet av statsautoriserte revisorer. Revisjon, regnskap og rådgivning for små og mellomstore bedrifter.">
+  <!-- Who we are -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow enter">Revisor i {company.city}</p>
+      <h1 id="hero-title" class="enter enter--2">Trygg revisjon for små og mellomstore bedrifter</h1>
+      <p class="hero-lead enter enter--3">Et frittstående revisjonsfirma, eid og drevet av statsautoriserte revisorer.</p>
+      <p class="hero-actions enter enter--4">
+        <a class="btn" href="/kontakt/">Ta kontakt</a>
+        <span>eller ring <a href={company.phone.href}>{company.phone.display}</a></span>
+      </p>
+    </div>
+    <HeroSlideshow
+      class="hero-media"
+      sizes="(min-width: 64rem) 55vw, 100vw"
+      slides={[
+        { name: 'arbeidsplass-1', alt: 'Arbeidsplass med bærbar PC, kalkulator og notatbok i dagslys', focus: 'center' },
+        { name: 'arbeidsplass-2', alt: '', focus: 'right' },
+        { name: 'logo-glass', alt: '', focus: 'center' },
+      ]}
+    />
+  </section>
+
+  <!-- What we do -->
+  <section class="section" aria-labelledby="tjenester-title">
+    <div class="container two-col">
+      <div class="two-col-label">
+        <h2 id="tjenester-title" class="label">Tjenester</h2>
+      </div>
+      <ul class="index-list">
+        {services.map((s) => (
+          <li>
+            <a href={`/tjenester/${s.slug}/`}>
+              <span class="index-title">{s.title}</span>
+              <span class="index-text">{s.tagline}</span>
+              <span class="index-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="feature" aria-labelledby="hvorfor-title">
+    <Photo
+      name="gjennomgang"
+      alt="Revisor og kunde går gjennom et regnskap sammen ved et bord"
+      sizes="(min-width: 56rem) 50vw, 100vw"
+      ratio="fill"
+      focus="center"
+      parallax
+      class="feature-photo"
+    />
+    <div class="feature-copy">
+      <h2 id="hvorfor-title">Kort vei til revisoren</h2>
+      <p>
+        Vi er et lite firma. Det betyr kort vei fra spørsmål til svar, og at du forholder deg til folk som kjenner
+        bedriften din.
+      </p>
+      <ul class="credentials-line">
+        <li>Godkjent revisjonsselskap</li>
+        <li>Autorisert regnskapsførerselskap</li>
+        <li>Medlem av Revisorforeningen</li>
+      </ul>
+      <a class="text-link" href="/om-oss/">Om Pro-Revisjon <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</Base>

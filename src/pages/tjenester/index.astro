@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { services } from '../../data/site';
+---
+<Base title="Tjenester" description="Revisjon, regnskap og skatt, og rådgivning fra statsautoriserte revisorer i Kristiansand.">
+  <PageHeader
+    title="Tjenester"
+    lead="Revisjon er kjernen i det vi gjør. Vi hjelper også med regnskap, skatt og rådgivning."
+    crumbs={[{ label: 'Tjenester', href: '/tjenester/' }]}
+  />
+  <section class="section section--flush-top" aria-label="Tjenesteoversikt">
+    <ul class="container index-list index-list--large">
+      {services.map((s) => (
+        <li>
+          <a href={`/tjenester/${s.slug}/`}>
+            <span class="index-title">{s.title}</span>
+            <span class="index-text">{s.tagline}</span>
+            <span class="index-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

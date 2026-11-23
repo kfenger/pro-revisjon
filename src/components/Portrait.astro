@@ -1,0 +1,26 @@
+---
+import { Picture } from 'astro:assets';
+import { staffPhoto } from '../lib/images';
+import { initials, type Person } from '../data/site';
+interface Props { person: Person; size: 'team' | 'small' | 'feature'; loading?: 'lazy' | 'eager'; }
+const { person, size, loading = 'lazy' } = Astro.props;
+const img = staffPhoto(person.photo);
+const widths = { team: [360, 720], small: [64, 128], feature: [360, 720] }[size];
+const sizes = { team: '(min-width: 48rem) 30vw, 90vw', small: '64px', feature: '(min-width: 56rem) 22vw, 45vw' }[size];
+---
+{img ? (
+  <Picture
+    src={img}
+    alt={`Portrett av ${person.name}`}
+    formats={['avif', 'webp']}
+    widths={widths.filter((w) => w <= img.width * 1.01).length ? widths.filter((w) => w <= img.width * 1.01) : [img.width]}
+    sizes={sizes}
+    class:list={['portrait', `portrait--${size}`]}
+    loading={loading}
+    decoding="async"
+  />
+) : (
+  <span class:list={['portrait', 'portrait-initials', `portrait--${size}`]} aria-hidden="true">
+    <span>{initials(person.name)}</span>
+  </span>
+)}

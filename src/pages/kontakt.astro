@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Photo from '../components/Photo.astro';
+import { company } from '../data/site';
+---
+<Base footerCta={false} title="Kontakt" description="Kontakt Pro-Revisjon AS, Kongsgård Alle 61, 4632 Kristiansand. Telefon 38 14 44 44, e-post firmapost@pro-revisjon.no.">
+  <section class="split-hero split-hero--contact">
+    <div class="split-hero-copy">
+      <Breadcrumbs items={[{ label: 'Kontakt', href: '/kontakt/' }]} />
+      <h1 class="enter">Kontakt oss</h1>
+      <dl class="contact-details enter enter--2">
+        <div><dt>Telefon</dt><dd><a href={company.phone.href}>{company.phone.display}</a></dd></div>
+        <div><dt>E-post</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+        <div>
+          <dt>Besøk</dt>
+          <dd>
+            <address>{company.street}<br />{company.postalCode} {company.city}</address>
+            <a class="text-link small" href={company.mapUrl} rel="noopener noreferrer">Vis i kart<span class="visually-hidden"> (Google Maps)</span> <span aria-hidden="true">↗</span></a>
+          </dd>
+        </div>
+      </dl>
+      <p class="fine-print enter enter--3">
+        Direktenummer finner du under <a href="/ansatte/">Ansatte</a>. Send ikke fødselsnummer eller andre sensitive
+        opplysninger med vanlig e-post – ring oss først, så avtaler vi en sikker løsning.
+      </p>
+    </div>
+    <Photo name="kjokken" alt="Kjøkkenet på kontoret med varmt lys, fruktskål og planter" sizes="(min-width: 64rem) 42vw, 100vw" ratio="21x9" priority class="contact-photo" />
+  </section>
+</Base>
