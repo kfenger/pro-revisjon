@@ -4,9 +4,9 @@ The Pro-Revisjon AS website. It is built with [Astro](https://astro.build) and o
 with **no JavaScript, database, cookies, analytics or admin login**.
 
 ## Versions
-Releases are tagged in git (`v1.0.0`, `v1.1.0`, …) and described in [CHANGELOG.md](CHANGELOG.md).
-To release: update `CHANGELOG.md`, run `npm version <x.y.z> --no-git-tag-version`, commit, then
-`git tag -a vX.Y.Z -m "…"` and `git push --follow-tags`.
+Versions follow semantic versioning and are described in [CHANGELOG.md](CHANGELOG.md).
+To release: add an entry to `CHANGELOG.md`, run `npm version <x.y.z> --no-git-tag-version`, commit and push to `main`.
+The workflow `.github/workflows/release.yml` then creates the tag `vX.Y.Z` and a GitHub Release with the changelog text.
 
 ## Requirements
 - Node.js 22.12 or newer

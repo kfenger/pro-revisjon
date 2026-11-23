@@ -1,0 +1,64 @@
+# Automatic version tags and GitHub Releases.
+# On every push to main: for each version that has ever been set in package.json,
+# create an annotated tag vX.Y.Z on the commit that introduced it (if missing) and a
+# GitHub Release whose notes are that version's section in CHANGELOG.md.
+# To release: add a CHANGELOG entry, bump "version" in package.json, push to main.
+name: Versjonstagger og releases
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lag manglende versjonstagger og releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --tags --force
+
+          # First commit that introduced each package.json version (oldest first)
+          for c in $(git log --reverse --format=%H -- package.json); do
+            v=$(git show "$c:package.json" | node -pe 'JSON.parse(require("fs").readFileSync(0, "utf8")).version')
+            echo "$v $c"
+          done | awk '!seen[$1]++' > versions.txt
+          cat versions.txt
+
+          while read -r v c; do
+            tag="v$v"
+            # Release notes = this version's section in CHANGELOG.md (if present)
+            awk -v ver="$v" '
+              $0 ~ "^## \\[" ver "\\]" {on=1; next}
+              on && /^## \[/ {exit}
+              on && /^\[[0-9]/ {exit}
+              on {print}
+            ' CHANGELOG.md > notes.md || true
+            [ -s notes.md ] || echo "Versjon $v" > notes.md
+
+            if ! git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+              git tag -a "$tag" "$c" -F notes.md
+              git push origin "refs/tags/$tag"
+              echo "Opprettet tagg $tag på $c"
+            fi
+            if ! gh release view "$tag" >/dev/null 2>&1; then
+              gh release create "$tag" --verify-tag --title "$tag" --notes-file notes.md
+              echo "Opprettet release $tag"
+            fi
+          done < versions.txt

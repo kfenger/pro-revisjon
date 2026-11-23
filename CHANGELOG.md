@@ -11,6 +11,7 @@ MAJOR for store omlegginger, MINOR for nye funksjoner eller synlige forbedringer
 ### Lagt til
 - Mobilmenyen lukkes når man trykker utenfor menyen (uten JavaScript), med en svak nedtoning av siden bak.
 - Testpakken ligger nå i `tests/`.
+- Automatisk versjonering: hver versjon i `package.json` får en git-tagg og en GitHub Release med teksten herfra.
 
 ### Rettet
 - Tjenester-siden: listen sto helt inntil venstre kant på mobil. Den følger nå samme marg som resten av siden.
