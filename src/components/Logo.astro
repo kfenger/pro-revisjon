@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import { logo } from '../lib/images';
 import { company } from '../data/site';
 const img = logo();
 ---
 {img ? (
-  <Image src={img} alt={company.name} class="logo-img" height={64} densities={[1, 2, 3]} loading="eager" />
+  <img src={img.src} alt={company.name} class="logo-img" width={Math.round((img.width * 64) / img.height)} height={64} loading="eager" decoding="async" />
 ) : (
   <span class="wordmark">
     <span class="wordmark-name">Pro-Revisjon</span>

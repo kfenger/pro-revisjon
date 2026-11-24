@@ -522,7 +522,7 @@ main:focus { outline: none; }
     --max: 110rem;
     --header-h: 5.5rem;
   }
-  .logo-img { height: 66px; }
+  .logo-img { height: 74px; }
 
   /* Hero: copy left, slideshow right, both inside the page margins */
   .hero {
