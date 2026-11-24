@@ -3,6 +3,13 @@
 Alle vesentlige endringer i nettsiden føres her. Versjonene følger [semantisk versjonering](https://semver.org/lang/no/):
 MAJOR for store omlegginger, MINOR for nye funksjoner eller synlige forbedringer, PATCH for rettelser.
 
+## [1.4.1] – 2026-11-24
+
+### Endret
+- Nytt og bedre bilde av logoen på glassveggen (Om oss og lysbildefremvisningen på forsiden).
+- Nytt bilde av kaffemaskinen på Kontakt-siden.
+- Kontakt (PC): bildet starter nå på samme høyde som teksten til venstre.
+
 ## [1.4.0] – 2026-11-23
 
 ### Endret
@@ -59,6 +66,7 @@ MAJOR for store omlegginger, MINOR for nye funksjoner eller synlige forbedringer
 - Statisk Astro-side uten JavaScript, streng sikkerhetsprofil (CSP m.m.) og generert `.htaccess`, `_headers`, `_redirects`.
 - GitHub Pages-workflow for testversjon (noindex og egen `robots.txt`).
 
+[1.4.1]: https://github.com/kfenger/pro-revisjon/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/kfenger/pro-revisjon/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/kfenger/pro-revisjon/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/kfenger/pro-revisjon/compare/v1.1.0...v1.2.0

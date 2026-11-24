@@ -645,7 +645,7 @@ main:focus { outline: none; }
 
   /* Contact: larger photo aligned with the details */
   .split-hero--contact { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
-  .split-hero--contact .contact-photo { align-self: start; margin-top: clamp(6.5rem, 8vw, 8.5rem); }
+  .split-hero--contact .contact-photo { align-self: start; margin-top: 3rem; } /* same top as the text column (its padding-top) */
   .split-hero--contact .contact-photo.photo--21x9 { aspect-ratio: 3 / 2; }
   .contact-details { max-width: 34rem; }
 }
